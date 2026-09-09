@@ -4,25 +4,51 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 
-type ButtonProps = {
-  label: string;
-  onClick: () => void;
-  disabled?: boolean;
-};
+function sum (p1: number, p2: number){
+  console.log("Function sum:")
+  console.log(p1)
+  console.log(p2)
+  return p1 + p2
+}
 
-function Button({ label, onClick, disabled = false }: ButtonProps) {
-  return (
-    <button onClick={onClick} disabled={disabled}>
-      {label}
-    </button>
-  );
+let result: number;
+
+function handleClick() {
+  result = sum(5, 9);
+  console.log(result);
 }
 
 
-
 function App() {
-  const [count, setCount] = useState(0)
-  console.log('Counter incremented')
+  console.log('Hello')
+
+  const object1 = {
+    name: 'Arto Hellas',
+    age: 35,
+    education: 'PhD',
+  }
+
+  const object2 = {
+    name: 'Full Stack web application development',
+    level: 'intermediate studies',
+    size: 5,
+  }
+
+  const object3 = {
+    name: {
+      first: 'Dan',
+      last: 'Abramov',
+    },
+    grades: [2, 3, 5, 3],
+    department: 'Stanford University',
+  }
+  console.log("Objects:")
+  console.log(object2.level)         // Arto Hellas is printed
+  const fieldName = 'age' 
+  const teacher = 'name'
+  console.log(object3[teacher])
+  console.log(object1[fieldName])    // 35 is printed
+
   return (
     <>
       <section id="center">
@@ -33,17 +59,16 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
-          <Button label="Save" onClick={() => console.log("Saved")} />
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
         </div>
         <button
           type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          className="Executor"
+          onClick={handleClick}
         >
-          Count is {count}
+          Click to execute
         </button>
       </section>
 
@@ -75,58 +100,7 @@ function App() {
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#social-icon"></use>
           </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+          
         </div>
       </section>
 
