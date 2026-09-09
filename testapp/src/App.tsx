@@ -42,6 +42,21 @@ function handleClick3() {
   console.log(result);
 }
 
+//hierarcycal type of handleclick
+const Button = (props) => {
+  return (
+    <button onClick={props.onClick}>
+      {props.text}
+    </button>
+  )
+}
+
+const Display = (props) => {
+  return (
+    <div>{props.counter}</div>
+  )
+}
+
 type user = {
   name: string;
   age: number;
@@ -63,7 +78,11 @@ const Hello = (props: user) => { // can be done like this: const Hello = ({ name
 
 
 function App() {
-  console.log('Hello')
+  const [ counter, setCounter ] = useState(0)
+  const increaseByOne = () => setCounter(counter + 1)
+  const decreaseByOne = () => setCounter(counter - 1)
+  const setToZero = () => setCounter(0)
+  console.log('Hello, the page rendered')
   const object1 = {
     name: 'Arto Hellas',
     age: 35,
@@ -129,7 +148,21 @@ function App() {
       <ul>
       <h1> Salutations </h1>
       <Hello name = {object1.name} age = {object1.age}/>
-
+      </ul>
+      <Display counter={counter}/>
+      <ul>
+      <Button 
+      onClick={increaseByOne}
+      text="+"
+      />
+      <Button 
+      onClick={decreaseByOne}
+      text="-"
+      />
+      <Button 
+      onClick={setToZero}
+      text="reset"
+      />
       </ul>
       </div>
       </section>
