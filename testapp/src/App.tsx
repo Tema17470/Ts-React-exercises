@@ -49,14 +49,14 @@ const Button = (props) => {
       {props.text}
     </button>
   )
-}
+}// or like this: const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const Display = (props) => {
   return (
     <div>{props.counter}</div>
   )
 }
-
+/* Not used now
 type user = {
   name: string;
   age: number;
@@ -75,20 +75,29 @@ const Hello = (props: user) => { // can be done like this: const Hello = ({ name
           </div>
   )
 }
-
-
+*/
 function App() {
   const [ counter, setCounter ] = useState(0)
   const increaseByOne = () => setCounter(counter + 1)
   const decreaseByOne = () => setCounter(counter - 1)
   const setToZero = () => setCounter(0)
   console.log('Hello, the page rendered')
+  
+  //left and right states
+    const [clicks, setClicks] = useState({
+    left: 0, right: 0
+  })
+  const handleLeftClick = () =>
+    setClicks({ ...clicks, left: clicks.left + 1 })
+
+  const handleRightClick = () =>
+    setClicks({ ...clicks, right: clicks.right + 1 })
+/*
   const object1 = {
     name: 'Arto Hellas',
     age: 35,
-    //education: 'PhD',
+    education: 'PhD',
   }
-/*
   const object2 = {
     name: 'Full Stack web application development',
     level: 'intermediate studies',
@@ -119,7 +128,7 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
+          <h1>Salutations</h1>
         </div>
         <ul>
         <button
@@ -145,10 +154,6 @@ function App() {
           </button>
           </ul>  
       <div>
-      <ul>
-      <h1> Salutations </h1>
-      <Hello name = {object1.name} age = {object1.age}/>
-      </ul>
       <Display counter={counter}/>
       <ul>
       <Button 
@@ -164,6 +169,12 @@ function App() {
       text="reset"
       />
       </ul>
+      <div>
+      {clicks.left} """
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      """ {clicks.right}
+      </div>
       </div>
       </section>
       
