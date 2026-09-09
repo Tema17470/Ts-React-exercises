@@ -4,6 +4,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 
+let result: number;
+
 function sum (p1: number, p2: number){
   console.log("Function sum:")
   console.log(p1)
@@ -11,23 +13,63 @@ function sum (p1: number, p2: number){
   return p1 + p2
 }
 
-let result: number;
-
-function handleClick() {
+function handleClick1() {
   result = sum(5, 9);
   console.log(result);
+}
+
+function product (p1: number, p2: number){
+  console.log("Function product:")
+  console.log(p1)
+  console.log(p2)
+  return p1 * p2
+}
+
+function handleClick2() {
+  result = product(5, 9);
+  console.log(result);
+}
+
+function substraction (p1: number, p2: number){
+  console.log("Function substraction:")
+  console.log(p1)
+  console.log(p2)
+  return p1 - p2
+}
+
+function handleClick3() {
+  result = substraction(5, 9);
+  console.log(result);
+}
+
+type user = {
+  name: string;
+  age: number;
+
+}
+
+const Hello = (props: user) => { // can be done like this: const Hello = ({ name, age }) => {...
+  const {name, age} = props // same as (const age = props.age)
+  const bornYear = () => new Date().getFullYear() - age
+  return(
+  <div>
+            <p>
+              Hello {name}, you are {age} years old
+            </p>
+            <p>So you were probably born in {bornYear()}</p>
+          </div>
+  )
 }
 
 
 function App() {
   console.log('Hello')
-
   const object1 = {
     name: 'Arto Hellas',
     age: 35,
-    education: 'PhD',
+    //education: 'PhD',
   }
-
+/*
   const object2 = {
     name: 'Full Stack web application development',
     level: 'intermediate studies',
@@ -48,7 +90,7 @@ function App() {
   const teacher = 'name'
   console.log(object3[teacher])
   console.log(object1[fieldName])    // 35 is printed
-
+*/
   return (
     <>
       <section id="center">
@@ -59,18 +101,39 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
         </div>
+        <ul>
         <button
           type="button"
           className="Executor"
-          onClick={handleClick}
+          onClick={handleClick1}
         >
-          Click to execute
+          Click to execute function 1
         </button>
+        <button 
+          type="button"
+          className="Executor"
+          onClick={handleClick2}
+        >
+          Click to execute function 2
+          </button>
+          <button 
+          type="button"
+          className="Executor"
+          onClick={handleClick3}
+        >
+          Click to execute function 3
+          </button>
+          </ul>  
+      <div>
+      <ul>
+      <h1> Salutations </h1>
+      <Hello name = {object1.name} age = {object1.age}/>
+
+      </ul>
+      </div>
       </section>
+      
 
       <div className="ticks"></div>
 
