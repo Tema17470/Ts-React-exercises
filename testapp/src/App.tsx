@@ -3,9 +3,10 @@ import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
-import './components/functions1.tsx'
+import {handleClick1,handleClick2,handleClick3} from './components/functions1.tsx';
 import Note from './components/Notes.tsx'
 
+/* cheking importing functionality 
 let result: number;
 
 function sum (p1: number, p2: number){
@@ -43,7 +44,7 @@ function handleClick3() {
   result = substraction(5, 9);
   console.log(result);
 }
-
+*/
 //hierarcycal type of handleclick
 const Button = (props) => {
   return (
@@ -79,15 +80,12 @@ const Hello = (props: user) => { // can be done like this: const Hello = ({ name
 }
 */
 function App(props) {
-
-  const [notes, setNotes] = useState(props.notes)
-    const [newNote, setNewNote] = useState(
-    'a new note...'
-  ) 
+  // counter states
   const [ counter, setCounter ] = useState(0)
   const increaseByOne = () => setCounter(counter + 1)
   const decreaseByOne = () => setCounter(counter - 1)
   const setToZero = () => setCounter(0)
+
   
   //left and right states
     const [clicks, setClicks] = useState({
@@ -98,7 +96,11 @@ function App(props) {
 
   const handleRightClick = () =>
     setClicks({ ...clicks, right: clicks.right + 1 })
-
+  // Note states
+  const [notes, setNotes] = useState(props.notes)
+  const [newNote, setNewNote] = useState('a new note...')
+  const [showAll, setShowAll] = useState(true)
+  // Note handlers
   const addNote = (event) => {
     event.preventDefault()
     const noteObject = {
@@ -107,13 +109,16 @@ function App(props) {
       id: String(notes.length + 1),
   }
 
-  setNotes(notes.concat(noteObject))
-  setNewNote('')
-}
+    setNotes(notes.concat(noteObject))
+    setNewNote('')
+  }
     const handleNoteChange = (event) => {
     console.log(event.target.value)
     setNewNote(event.target.value)
   }
+  const notesToShow = showAll
+  ? notes
+  : notes.filter(note => note.important === true)
 /*
   const object1 = {
     name: 'Arto Hellas',
@@ -200,8 +205,13 @@ function App(props) {
       </div>
       <div>
         <p>Notes</p>
+        <div>
+          <button onClick={() => setShowAll(!showAll)}>
+            show {showAll ? 'important' : 'all'}
+          </button>
+        </div>
         <ul>
-          {notes.map(note => 
+          {notesToShow.map(note => 
           <Note key={note.id} note={note}/>
           )}
         </ul>

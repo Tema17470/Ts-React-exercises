@@ -6,7 +6,7 @@ function sum (p1: number, p2: number){
   return p1 + p2
 }
 
-function handleClick1() {
+export function handleClick1() {
   result = sum(5, 9);
   console.log(result);
 }
@@ -18,7 +18,7 @@ function product (p1: number, p2: number){
   return p1 * p2
 }
 
-function handleClick2() {
+export function handleClick2() {
   result = product(5, 9);
   console.log(result);
 }
@@ -30,9 +30,8 @@ function substraction (p1: number, p2: number){
   return p1 - p2
 }
 
-function handleClick3() {
+export function handleClick3() {
   result = substraction(5, 9);
   console.log(result);
 }
-
 
