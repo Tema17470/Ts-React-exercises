@@ -3,6 +3,8 @@ import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
+import './components/functions1.tsx'
+import Note from './components/Notes.tsx'
 
 let result: number;
 
@@ -76,12 +78,16 @@ const Hello = (props: user) => { // can be done like this: const Hello = ({ name
   )
 }
 */
-function App() {
+function App(props) {
+
+  const [notes, setNotes] = useState(props.notes)
+    const [newNote, setNewNote] = useState(
+    'a new note...'
+  ) 
   const [ counter, setCounter ] = useState(0)
   const increaseByOne = () => setCounter(counter + 1)
   const decreaseByOne = () => setCounter(counter - 1)
   const setToZero = () => setCounter(0)
-  console.log('Hello, the page rendered')
   
   //left and right states
     const [clicks, setClicks] = useState({
@@ -92,6 +98,22 @@ function App() {
 
   const handleRightClick = () =>
     setClicks({ ...clicks, right: clicks.right + 1 })
+
+  const addNote = (event) => {
+    event.preventDefault()
+    const noteObject = {
+      content: newNote,
+      important: Math.random() < 0.5,
+      id: String(notes.length + 1),
+  }
+
+  setNotes(notes.concat(noteObject))
+  setNewNote('')
+}
+    const handleNoteChange = (event) => {
+    console.log(event.target.value)
+    setNewNote(event.target.value)
+  }
 /*
   const object1 = {
     name: 'Arto Hellas',
@@ -175,6 +197,21 @@ function App() {
       <button onClick={handleRightClick}>right</button>
       """ {clicks.right}
       </div>
+      </div>
+      <div>
+        <p>Notes</p>
+        <ul>
+          {notes.map(note => 
+          <Note key={note.id} note={note}/>
+          )}
+        </ul>
+        <form onSubmit={addNote}>
+          <input
+          value={newNote}
+          onChange={handleNoteChange} 
+          />
+          <button type="submit">save</button>
+        </form>
       </div>
       </section>
       
