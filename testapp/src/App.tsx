@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 import {handleClick1,handleClick2,handleClick3} from './components/functions1.tsx';
 import Note from './components/Notes.tsx'
+import axios from 'axios'
 
 /* now is imported
 function handleClick3() {
@@ -26,27 +27,8 @@ const Display = (props) => {
     <div>{props.counter}</div>
   )
 }
-/* Not used now
-type user = {
-  name: string;
-  age: number;
 
-}
-
-const Hello = (props: user) => { // can be done like this: const Hello = ({ name, age }) => {...
-  const {name, age} = props // same as (const age = props.age)
-  const bornYear = () => new Date().getFullYear() - age
-  return(
-  <div>
-            <p>
-              Hello {name}, you are {age} years old
-            </p>
-            <p>So you were probably born in {bornYear()}</p>
-          </div>
-  )
-}
-*/
-function App(props) {
+function App() {
   // counter states
   const [ counter, setCounter ] = useState(0)
   const increaseByOne = () => setCounter(counter + 1)
@@ -63,10 +45,23 @@ function App(props) {
 
   const handleRightClick = () =>
     setClicks({ ...clicks, right: clicks.right + 1 })
+
   // Note states
-  const [notes, setNotes] = useState(props.notes)
+  const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('a new note...')
   const [showAll, setShowAll] = useState(true)
+  // Note useEffect
+  const hook = () => {
+    console.log('effect')
+    axios
+    .get('http://localhost:3001/notes')
+    .then(response => {
+      console.log('promise fulfilled')
+      setNotes(response.data)
+    })
+  }
+
+  useEffect(hook, [])
   // Note handlers
   const addNote = (event) => {
     event.preventDefault()
@@ -76,8 +71,12 @@ function App(props) {
       id: String(notes.length + 1),
   }
 
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
+  axios
+    .post('http://localhost:3001/notes', noteObject)
+    .then(response => {
+      setNotes(notes.concat(response.data))
+      setNewNote('')
+    })
   }
     const handleNoteChange = (event) => {
     console.log(event.target.value)
