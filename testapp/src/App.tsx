@@ -208,14 +208,16 @@ function App() {
       """ {clicks.right}
       </div>
       </div>
+      </section>
+
       <div>
-        <p>Notes</p>
+        <h2 className='notesH'>Notes</h2>
         <div>
           <button onClick={() => setShowAll(!showAll)}>
             show {showAll ? 'important' : 'all'}
           </button>
         </div>
-        <ul>
+        <ul className='notes'>
           {notesToShow.map(note => 
           <Note 
           key={note.id} 
@@ -232,7 +234,7 @@ function App() {
           <button type="submit">save</button>
         </form>
       </div>
-      </section>
+  
       
 
       <div className="ticks"></div>
@@ -263,6 +265,7 @@ function App() {
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#social-icon"></use>
           </svg>
+          
           
         </div>
       </section>

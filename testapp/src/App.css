@@ -182,3 +182,11 @@
     border-right-color: var(--border);
   }
 }
+.notesH {
+  color: orange;
+}
+.notes {
+  color: grey;
+  padding-top: 5px;
+  font-size: 18px;
+}
