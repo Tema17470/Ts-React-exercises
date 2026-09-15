@@ -1,8 +1,9 @@
 import express from 'express'
+import cors from 'cors'
 
 const app = express()
-
 app.use(express.json())
+app.use(cors())
 
 let notes = [
   {
@@ -73,6 +74,29 @@ app.post('/api/notes', (request, response) => {
   notes = notes.concat(note)
 
   response.json(note)
+})
+
+app.put('/api/notes/:id', (request, response) => {
+  const id = request.params.id
+  const body = request.body
+
+  const note = notes.find(note => note.id === id)
+
+  if (!note) {
+    return response.status(404).end()
+  }
+
+  const changedNote = {
+    ...note,
+    content: body.content,
+    important: body.important
+  }
+
+  notes = notes.map(note =>
+    note.id === id ? changedNote : note
+  )
+
+  response.json(changedNote)
 })
 
 const PORT = 3001
